@@ -1,0 +1,15 @@
+# نادیده گرفتن پوشه‌های سیستمی و موقت
+AppData/
+archive-contents/
+.git/
+node_modules/
+
+# نادیده گرفتن فایل‌های موقت و کش
+*.tmp
+*.log
+Thumbs.db
+.DS_Store
+*.pem
+
+# نادیده گرفتن فایل‌های محیطی
+.env*.local

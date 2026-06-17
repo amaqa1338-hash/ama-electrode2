@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "ab4",
+    "slug": "snack-3b09d55d-3602-4342-9ebd-3e80f2918b88",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.amaqa.snack3b09d55d360243429ebd3e80f2918b88"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "15363874-79af-4172-a5bf-b3ae45ff979a"
+      }
+    }
+  }
+}
