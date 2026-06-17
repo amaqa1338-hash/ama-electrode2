@@ -16,7 +16,7 @@ jobs:
           npm install
           npm install -g eas-cli
       - name: ورود به Expo
-        run: eas login --token ${{ secrets.EXPO_TOKEN }}
+        run: npx expo login --token ${{ secrets.EXPO_TOKEN }}
       - name: ساخت APK
         run: eas build -p android --profile preview --non-interactive
       - name: دریافت لینک ساخت
