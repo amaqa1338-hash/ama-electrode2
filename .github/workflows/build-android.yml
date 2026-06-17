@@ -7,25 +7,32 @@ jobs:
     steps:
       - name: دریافت کد
         uses: actions/checkout@v4
+      
       - name: نصب Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
+      
       - name: نصب وابستگی‌ها
         run: |
           npm install
           npm install -g eas-cli
-      - name: ورود به Expo
-        run: npx expo login --token ${{ secrets.EXPO_TOKEN }}
+      
       - name: ساخت APK
-        run: eas build -p android --profile preview --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          eas build -p android --profile preview --non-interactive
+      
       - name: دریافت لینک ساخت
         id: get-build
         run: |
           BUILD_URL=$(eas build:list -p android --limit 1 --json | jq -r '.[0].artifacts.buildUrl')
           echo "build_url=$BUILD_URL" >> $GITHUB_OUTPUT
+      
       - name: دانلود APK
         run: curl -L ${{ steps.get-build.outputs.build_url }} -o app.apk
+      
       - name: بارگذاری APK
         uses: actions/upload-artifact@v4
         with:
