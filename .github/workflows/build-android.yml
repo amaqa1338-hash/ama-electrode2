@@ -18,27 +18,12 @@ jobs:
           npm install
           npm install -g eas-cli
       
-      - name: ساخت APK
+      - name: ساخت APK با EAS
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: eas build -p android --profile preview --non-interactive
-      
-      - name: دریافت آخرین ساخت موفق
-        id: get-build
         run: |
-          BUILD_JSON=$(eas build:list -p android --limit 1 --json --non-interactive)
-          echo "$BUILD_JSON"
-          BUILD_URL=$(echo "$BUILD_JSON" | jq -r '.[0].artifacts.buildUrl')
-          echo "build_url=$BUILD_URL" >> $GITHUB_OUTPUT
-      
-      - name: دانلود APK
-        run: |
-          if [ -n "${{ steps.get-build.outputs.build_url }}" ]; then
-            curl -L ${{ steps.get-build.outputs.build_url }} -o app.apk
-          else
-            echo "هیچ لینکی پیدا نشد"
-            exit 1
-          fi
+          echo "شروع ساخت APK..."
+          eas build -p android --profile preview --non-interactive --output ./app.apk
       
       - name: بارگذاری APK
         uses: actions/upload-artifact@v4
