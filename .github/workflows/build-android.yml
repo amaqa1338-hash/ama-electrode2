@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android APK (Manual Download)
 on:
   workflow_dispatch:
 jobs:
@@ -25,31 +25,8 @@ jobs:
           echo "شروع ساخت ابری APK..."
           eas build -p android --profile preview --non-interactive
       
-      - name: دریافت شناسه آخرین ساخت موفق
-        id: get-build-id
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      - name: اطلاع از اتمام ساخت
         run: |
-          # دریافت آخرین ساخت از API Expo
-          RESPONSE=$(curl -s -H "Authorization: Bearer $EXPO_TOKEN" \
-            "https://api.expo.dev/v2/builds?limit=1&platform=android&status=finished")
-          
-          # استخراج شناسه ساخت
-          BUILD_ID=$(echo "$RESPONSE" | jq -r '.data[0].id')
-          echo "build_id=$BUILD_ID" >> $GITHUB_OUTPUT
-          
-          # استخراج لینک دانلود
-          DOWNLOAD_URL=$(echo "$RESPONSE" | jq -r '.data[0].artifacts.buildUrl')
-          echo "download_url=$DOWNLOAD_URL" >> $GITHUB_OUTPUT
-      
-      - name: دانلود APK
-        if: steps.get-build-id.outputs.download_url != 'null' && steps.get-build-id.outputs.download_url != ''
-        run: |
-          echo "دانلود APK از: ${{ steps.get-build-id.outputs.download_url }}"
-          curl -L "${{ steps.get-build-id.outputs.download_url }}" -o app.apk
-      
-      - name: بارگذاری APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release
-          path: app.apk
+          echo "✅ ساخت با موفقیت انجام شد."
+          echo "برای دانلود APK، به داشبورد Expo بروید:"
+          echo "https://expo.dev/accounts/amaqa1338-hash/projects/ama-electrode2/builds"
